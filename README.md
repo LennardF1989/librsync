@@ -91,9 +91,14 @@ script. With these variables set, you just do;
     $ ./configure.msc
     $ make all check
 
+### Note for Windows MSVS2013
 The PCbuild directory contains a project and pre-generated config
 files for use with the MSVC++ IDE. This should be enought to compile
 rdiff.exe without requiring cygwin.
+
+You can compile librsync.dll file for python ctypes.
+
+PS: if your python.exe is 64bit, you must compile a 64bit librsync.dll.
 
 ## Library Versions
 

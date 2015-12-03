@@ -43,6 +43,8 @@
 #include <sys/types.h>
 #include <librsync-config.h>
 
+#define DllExport   __declspec( dllexport ) 
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -116,7 +118,7 @@ typedef enum {
  */
 typedef void    rs_trace_fn_t(int level, char const *msg);
 
-void            rs_trace_set_level(rs_loglevel level);
+DllExport void            rs_trace_set_level(rs_loglevel level);
 
 /** Set trace callback. */
 void            rs_trace_to(rs_trace_fn_t *);
@@ -185,7 +187,7 @@ typedef enum {
 /**
  * Return an English description of a ::rs_result value.
  */
-char const *rs_strerror(rs_result r);
+DllExport char const *rs_strerror(rs_result r);
 
 
 /**
@@ -245,7 +247,7 @@ int rs_log_stats(rs_stats_t const *stats);
 
 typedef struct rs_signature rs_signature_t;
 
-void rs_free_sumset(rs_signature_t *);
+DllExport void rs_free_sumset(rs_signature_t *);
 void rs_sumset_dump(rs_signature_t const *);
 
 
@@ -337,7 +339,7 @@ typedef enum rs_work_options {
 } rs_work_options;
 
 
-rs_result       rs_job_iter(rs_job_t *, rs_buffers_t *);
+DllExport rs_result       rs_job_iter(rs_job_t *, rs_buffers_t *);
 
 typedef rs_result rs_driven_cb(rs_job_t *job, rs_buffers_t *buf,
                                void *opaque);
@@ -348,7 +350,7 @@ rs_result rs_job_drive(rs_job_t *job, rs_buffers_t *buf,
 
 const rs_stats_t * rs_job_statistics(rs_job_t *job);
 
-rs_result       rs_job_free(rs_job_t *);
+DllExport rs_result       rs_job_free(rs_job_t *);
 
 int             rs_accum_value(rs_job_t *, char *sum, size_t sum_len);
 
@@ -367,13 +369,13 @@ int             rs_accum_value(rs_job_t *, char *sum, size_t sum_len);
  * many bytes, to make the signature shorter.  It's recommended you leave this
  * at zero to get the full strength.
  **/
-rs_job_t *rs_sig_begin(size_t new_block_len,
+DllExport rs_job_t *rs_sig_begin(size_t new_block_len,
 		       size_t strong_sum_len,
 		       rs_magic_number sig_magic);
 
-rs_job_t *rs_delta_begin(rs_signature_t *);
+DllExport rs_job_t *rs_delta_begin(rs_signature_t *);
 
-rs_job_t *rs_loadsig_begin(rs_signature_t **);
+DllExport rs_job_t *rs_loadsig_begin(rs_signature_t **);
 
 /**
  * \brief Callback used to retrieve parts of the basis file.
@@ -392,10 +394,10 @@ typedef rs_result rs_copy_cb(void *opaque, rs_long_t pos,
 
 
 
-rs_job_t *rs_patch_begin(rs_copy_cb *, void *copy_arg);
+DllExport rs_job_t *rs_patch_begin(rs_copy_cb *, void *copy_arg);
 
 
-rs_result rs_build_hash_table(rs_signature_t* sums);
+DllExport rs_result rs_build_hash_table(rs_signature_t* sums);
 
 
 
